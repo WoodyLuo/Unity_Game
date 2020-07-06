@@ -6,12 +6,33 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    // 變數宣告
+    private Image playerImgUI;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // 取得"Player_img"實體Image物件
+        this.playerImgUI = GameObject.Find("Player_img").GetComponent<Image>();
     }
 
+
+    // 玩家右移方法 (請使用事件觸發並綁定UI元件)
+    public void PlayerMoveRight()
+    {
+        this.playerImgUI.transform.Translate(5.0f, 0.0f, 0.0f);
+    }
+
+
+    // 玩家左移方卡 (請使用事件觸發並綁定UI元件)
+    public void PlayerMoveLeft()
+    {
+        this.playerImgUI.transform.Translate(-5.0f, 0.0f, 0.0f);
+    }
+
+
+    /*
     // Update is called once per frame
     void Update()
     {
@@ -21,11 +42,12 @@ public class PlayerController : MonoBehaviour
             transform.Translate(-3.0f, 0.0f, 0.0f);
         }// end - if
 
-        // 按下左方向鈕時
+        // 按下右方向鈕時
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             transform.Translate(3.0f, 0.0f, 0.0f);
         }// end - if
     }// End - Update()
+    */
 }// END - PlayerController()
 

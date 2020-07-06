@@ -63,7 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Resources\Scripts\ArrowController.cs" />
+    <Compile Include="Assets\Resources\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Resources\Scripts\EnemyGenerator.cs" />
     <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/mac/Documents/PYTHON/UNITY_GAME/GAME03/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
