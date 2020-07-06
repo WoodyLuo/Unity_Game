@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     private float enemyShortFixedHeight;
     private float enemyShortHeightRadius;
 
+    private float droppingFactor;
     private float threshold;
     //private Image enemyShortUI;
 
@@ -33,10 +34,10 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.droppingFactor = -0.2f;
 
         //this.enemyShortUI = Instantiate(enemyShortUIPrefab, Quaternion.identity) as Image;
-        
+
         // 畫布
         //this.gameCanvasUI = GameObject.Find("Game03Canvas").GetComponent<Canvas>();
         //this.gameCanvasFixedScale = this.gameCanvasUI.scaleFactor;         // 取得符合Canvas的縮放比例
@@ -144,9 +145,10 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         // 每次動畫更新，物件就等速落下
-        transform.Translate(0.0f, -0.4f, 0.0f);
+        this.droppingFactor = this.droppingFactor * 1.002f;
+        transform.Translate(0.0f, this.droppingFactor, 0.0f);
 
-        if(transform.position.y <= 0.0f)
+        if(transform.position.y <= -10.0f)
         {
             // 銷毀超出由下畫面的敵人(箭頭)
             Destroy(gameObject);
