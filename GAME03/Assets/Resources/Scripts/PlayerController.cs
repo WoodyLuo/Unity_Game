@@ -15,21 +15,21 @@ public class PlayerController : MonoBehaviour
     {
         // 取得"Player_img"實體Image物件
         this.playerImgUI = GameObject.Find("Player_img").GetComponent<Image>();
-    }
+    }// End - Start()
 
 
     // 玩家右移方法 (請使用事件觸發並綁定UI元件)
     public void PlayerMoveRight()
     {
-        this.playerImgUI.transform.Translate(5.0f, 0.0f, 0.0f);
-    }
+        this.playerImgUI.transform.Translate(10.0f, 0.0f, 0.0f);
+    }// End - PlayerMoveRight()
 
 
     // 玩家左移方卡 (請使用事件觸發並綁定UI元件)
     public void PlayerMoveLeft()
     {
-        this.playerImgUI.transform.Translate(-5.0f, 0.0f, 0.0f);
-    }
+        this.playerImgUI.transform.Translate(-10.0f, 0.0f, 0.0f);
+    }// End - PlayerMoveLeft()
 
 
     /*
@@ -49,5 +49,6 @@ public class PlayerController : MonoBehaviour
         }// end - if
     }// End - Update()
     */
+
 }// END - PlayerController()
 

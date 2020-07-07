@@ -1,0 +1,4 @@
+#Tue Jul 07 19:30:55 CST 2020
+base.0=/Users/mac/Documents/PYTHON/UNITY_GAME/GAME03/Temp/gradleOut/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex

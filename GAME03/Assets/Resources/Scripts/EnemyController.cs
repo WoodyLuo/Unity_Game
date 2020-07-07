@@ -28,6 +28,7 @@ public class EnemyController : MonoBehaviour
 
     private float droppingFactor;
     private float threshold;
+    private bool gameHasEnded = false;
     //private Image enemyShortUI;
 
 
@@ -68,115 +69,134 @@ public class EnemyController : MonoBehaviour
     }// End - Start()
 
 
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (this.gameHasEnded != true)
+        {
+            // 每次動畫更新，物件就等速落下
+            this.droppingFactor = this.droppingFactor * 1.0035f;
+            transform.Translate(0.0f, this.droppingFactor, 0.0f);
+
+            if (transform.position.y <= -10.0f)
+            {
+                // 銷毀超出由下畫面的敵人(箭頭)
+                Destroy(gameObject);
+            }// end - if
+
+            // 新增衝突判定
+            Vector2 p1 = transform.position;    // 敵人(箭頭)的中心點座標
+            Vector2 p2 = this.playerImgUI.transform.position; // 玩家的中心點座標
+            Vector2 dir = p1 - p2;    // 敵人(箭頭)到玩家的向量
+            float d = dir.magnitude;  // 敵人(箭頭)到玩家的距離
+
+            //Debug.Log("----");
+            //Debug.LogFormat("Enemy Position:{0};\tPlayer Pisotion:{1};\tVector form Enemy to Player:{2}", p1, p2, dir);
+
+            // 取得符合螢幕縮放大小的縮放比
+            // this.playerImgUI.rectTransform.lossyScale. ==> Scale:(1.0, 1.0, 1.0)
+            //Debug.LogFormat("d:{0};\tPlayer Radius:{1};\tEnemy-Short Radius:{2}", d, this.playerHeightRadius, this.enemyShortHeightRadius);
+
+            if (d < this.threshold)  // 衝突事件判斷
+            {
+                // 發生碰撞就扣血
+                GameObject director = GameObject.Find("GameManager");  // 尋找與建立director物件
+                director.GetComponent<GameDirector>().DecreaseHp();    // 取的GameDirector元件(物件)並使用DecreaseHp()方法
+
+                // 發生碰撞衝突就銷毀物件
+                Destroy(gameObject);
+
+                // 沒有生命值就重新遊戲
+                if (GameObject.Find("HpGauge_img").GetComponent<Image>().fillAmount == 0.0f)
+                {
+                    this.gameHasEnded = true;
+                    GameObject.Find("GameManager").GetComponent<GameDirector>().GameOver();
+                }
+            }// end - if
+        }//end -if
+    }// End - Update()
+
+
     public Vector3 PlayerFixedScale
     {
         get
         {
             return this.playerFixedScale;
-        }
-    }
+        }// end - get
+    }// End - PlayerFixedScale(Getter)
+
 
     public float PlayerFixedHeight
     {
         get
         {
             return this.playerFixedHeight;
-        }
-    }
+        }// end - get
+    }// End - PlayerFixedHeight(Getter)
+
 
     public float PlayerFixedWidth
     {
         get
         {
             return this.playerFixedWidth;
-        }
-    }
+        }// end - get
+    }// End - PlayerFixedWidth(Getter)
+
 
     public float PlayerHeightRadius
     {
         get
         {
             return this.playerHeightRadius;
-        }
-    }
+        }// end - get
+    }// End - PlayerHeightRadius(Getter)
+
 
     public Vector3 EnemyShortFixedScale
     {
         get
         {
             return this.enemyShortFixedScale;
-        }
-    }
+        }// end - get
+    }// End - EnemyShortFixedScale(Getter)
+
 
     public float EnemyShortFixedHeight
     {
         get
         {
             return this.enemyShortFixedHeight;
-        }
-    }
+        }// end - get
+    }// End - EnemyShortFixedHeight(Getter)
+
 
     public float EnemyShortFixedWidth
     {
         get
         {
             return this.enemyShortFixedWidth;
-        }
-    }
+        }// end - get
+    }// End - EnemyShortFixedWidth(Getter)
+
 
     public float EnemyShortHeightRadius
     {
         get
         {
             return this.enemyShortHeightRadius;
-        }
-    }
+        }// end - get
+    }// End - EnemyShortHeightRadius(Getter)
+
 
     public float Threshold
     {
         get
         {
             return this.threshold;
-        }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        // 每次動畫更新，物件就等速落下
-        this.droppingFactor = this.droppingFactor * 1.002f;
-        transform.Translate(0.0f, this.droppingFactor, 0.0f);
-
-        if(transform.position.y <= -10.0f)
-        {
-            // 銷毀超出由下畫面的敵人(箭頭)
-            Destroy(gameObject);
-        }// end - if
-
-        // 新增衝突判定
-        Vector2 p1 = transform.position;    // 敵人(箭頭)的中心點座標
-        Vector2 p2 = this.playerImgUI.transform.position; // 玩家的中心點座標
-        Vector2 dir = p1 - p2;    // 敵人(箭頭)到玩家的向量
-        float d = dir.magnitude;  // 敵人(箭頭)到玩家的距離
-
-        //Debug.Log("----");
-        //Debug.LogFormat("Enemy Position:{0};\tPlayer Pisotion:{1};\tVector form Enemy to Player:{2}", p1, p2, dir);
-
-        // 取得符合螢幕縮放大小的縮放比
-        // this.playerImgUI.rectTransform.lossyScale. ==> Scale:(1.0, 1.0, 1.0)
-        //Debug.LogFormat("d:{0};\tPlayer Radius:{1};\tEnemy-Short Radius:{2}", d, this.playerHeightRadius, this.enemyShortHeightRadius);
-
-        if (d < this.threshold)  // 衝突事件判斷
-        {
-            // 發生碰撞就扣血
-            GameObject director = GameObject.Find("GameManager");  // 尋找與建立director物件
-            director.GetComponent<GameDirector>().DecreaseHp();    // 取的GameDirector元件(物件)並使用DecreaseHp()方法
-
-            // 發生碰撞衝突就銷毀物件
-            Destroy(gameObject);
-        }
-    }// End - Update()
+        }// end - get
+    }// End - Threshold(Getter)
 
 
 }// END - ArrowController{}
