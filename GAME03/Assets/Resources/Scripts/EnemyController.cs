@@ -167,8 +167,13 @@ public class EnemyController : MonoBehaviour
         // this.playerImgUI.rectTransform.lossyScale. ==> Scale:(1.0, 1.0, 1.0)
         //Debug.LogFormat("d:{0};\tPlayer Radius:{1};\tEnemy-Short Radius:{2}", d, this.playerHeightRadius, this.enemyShortHeightRadius);
 
-        if (d < this.threshold)
-        {   // 發生碰撞衝突就銷毀物件
+        if (d < this.threshold)  // 衝突事件判斷
+        {
+            // 發生碰撞就扣血
+            GameObject director = GameObject.Find("GameManager");  // 尋找與建立director物件
+            director.GetComponent<GameDirector>().DecreaseHp();    // 取的GameDirector元件(物件)並使用DecreaseHp()方法
+
+            // 發生碰撞衝突就銷毀物件
             Destroy(gameObject);
         }
     }// End - Update()

@@ -27,7 +27,7 @@ public class EnemyGenerator : MonoBehaviour
     void Start()
     {
         // .sprite.rect.width
-        float gameCanvasScale = this.gameCanvas.scaleFactor;      // 取得符合Canvas的縮放比例
+        float gameCanvasScale = this.gameCanvas.scaleFactor;     // 取得符合Canvas的縮放比例
         float gameCanvasWidth = this.gameCanvas.pixelRect.width; // 取得Canvas縮放過的(screen-fitted)寬度
         Debug.LogFormat("Canvas Scale:{0};\tCanvas Width:{1};\t", gameCanvasScale, gameCanvasWidth);
         
@@ -47,7 +47,9 @@ public class EnemyGenerator : MonoBehaviour
             //一定要先設定將實體化的物件父繼承類別，方可繼續使用其他函示。
             enemy.transform.parent = this.gameCanvas.transform;
             enemy.transform.position = new Vector3(anchPoint, 1040.0f, 0.0f);
-            
+
+            // 調用enemyPrefab的EnenyController元件(物件)的Threshold取用子的方法。
+            //float thresh = enemy.GetComponent<EnemyController>().Threshold;
             
         }
     }
